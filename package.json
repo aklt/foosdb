@@ -1,0 +1,15 @@
+{
+  "name": "fsdb",
+  "description": "Disk key value store",
+  "version": "0.1.0",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "dependencies": {
+    "mkdirp": "^0.5.1"
+  },
+  "devDependencies": {
+    "rimraf": "^2.5.4",
+    "tape": "^4.6.0"
+  }
+}
