@@ -1,7 +1,7 @@
 {
-  "name": "fsdb",
+  "name": "@aklt/fsdb",
   "description": "Disk key value store",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "scripts": {
     "test": "node test.js"
   },
