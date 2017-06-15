@@ -1,7 +1,7 @@
 {
   "name": "fsdb",
   "description": "Disk key value store",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "scripts": {
     "test": "node test.js"
   },
