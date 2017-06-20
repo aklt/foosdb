@@ -4,9 +4,9 @@ var path = require('path')
 var stream = require('stream')
 var mkdirp = require('mkdirp')
 
-module.exports = Fsdb
+module.exports = Foosdb
 
-function Fsdb (o) {
+function Foosdb (o) {
   this.dir = o.dir
   this.infoFile = o.infoFile
   this.files = o.files
@@ -20,7 +20,7 @@ function Fsdb (o) {
   this.perm = new Perm(this.files, this.strategy)
 }
 
-Fsdb.open = function (o, cb) {
+Foosdb.open = function (o, cb) {
   if (!o.dir) throw new Error('Need o.dir')
   mkdirp(o.dir, (err) => {
     if (err) return cb(err)
@@ -28,7 +28,7 @@ Fsdb.open = function (o, cb) {
     readInfoFile(infoFile, (err, info) => {
       if (err) return cb(err)
 
-      var db = new Fsdb({
+      var db = new Foosdb({
         dir: o.dir,
         infoFile: infoFile,
         files: info.files,
@@ -42,7 +42,7 @@ Fsdb.open = function (o, cb) {
   })
 }
 
-Fsdb.prototype = {
+Foosdb.prototype = {
   put: function (readStreamOrString, cb) {
     this.pending.push([readStreamOrString, cb])
     this.putCount += 1
@@ -90,11 +90,11 @@ Fsdb.prototype = {
   get: function (hashOrIndex, cb) {
     if (typeof hashOrIndex === 'number') hashOrIndex = this.perm.get(hashOrIndex)
     var filePath = path.join.apply(null, pathArray(this.dir, hashOrIndex))
-    fs.exists(filePath, (exists) => {
-      if (exists) {
-        return cb(null, fs.createReadStream(filePath))
+    fs.access(filePath, (err) => {
+      if (err) {
+        return cb(new Error('No data at ' + hashOrIndex))
       }
-      return cb(new Error('No data at ' + hashOrIndex))
+      return cb(null, fs.createReadStream(filePath))
     })
   },
   close: function (cb) {
