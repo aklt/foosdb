@@ -4,8 +4,6 @@ var path = require('path')
 var stream = require('stream')
 var mkdirp = require('mkdirp')
 
-module.exports = Foosdb
-
 function Foosdb (o) {
   this.dir = o.dir
   this.infoFile = o.infoFile
@@ -19,6 +17,8 @@ function Foosdb (o) {
   this.strategy = o.strategy || 'linear'
   this.perm = new Perm(this.files, this.strategy)
 }
+
+module.exports = Foosdb
 
 Foosdb.open = function (o, cb) {
   if (!o.dir) throw new Error('Need o.dir')

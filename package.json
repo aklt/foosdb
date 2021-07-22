@@ -1,7 +1,8 @@
 {
   "name": "foosdb",
   "description": "Disk key value store",
-  "version": "0.1.2",
+  "version": "0.1.3",
+  "main": "index.js",
   "scripts": {
     "test": "node test.js"
   },
